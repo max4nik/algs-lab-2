@@ -3,7 +3,7 @@ def find_optimal_speed(piles, hours):
     solves task from README.md
 
     :param piles: list of piles with bananas
-    :param hours: hours monkey has to eat all bananas.gitignore
+    :param hours: hours monkey has to eat all bananas
     :return: minimal most suitable value to pass task condition
 
     >>> find_optimal_speed([3, 6, 7, 11], 8)
@@ -17,8 +17,15 @@ def find_optimal_speed(piles, hours):
     >>> find_optimal_speed([5, 6], 3)
     5
     """
-    min_speed = 1
-    max_speed = max(piles)
+    total_bananas = max_speed = 0
+    for pile in piles:
+        total_bananas += pile
+        if max_speed < pile:
+            max_speed = pile
+    min_speed = total_bananas // hours
+
+    if len(piles) == hours:
+        return max_speed
     return binary_search(min_speed, max_speed, piles, hours)
 
 
@@ -35,10 +42,11 @@ def binary_search(minimal_value, maximal_value, piles, hours):
     >>> binary_search(1, 11, [3, 6, 7, 11], 8)
     4
     """
-    while minimal_value <= maximal_value:
+    while minimal_value < maximal_value:
         probable_speed = (minimal_value + maximal_value) // 2
+
         if can_eat_in_time(piles, hours, probable_speed):
-            maximal_value = probable_speed - 1
+            maximal_value = probable_speed
         else:
             minimal_value = probable_speed + 1
     return minimal_value
@@ -60,10 +68,7 @@ def can_eat_in_time(piles, hours_to_eat, probable_speed):
     """
     real_hours = 0
     for pile in piles:
-        if pile % probable_speed == 0:
-            real_hours += int(pile / probable_speed)
-        else:
-            real_hours += int(pile / probable_speed) + 1
+        real_hours += pile // probable_speed + (0 if pile % probable_speed == 0 else 1)
     return real_hours <= hours_to_eat
 
 

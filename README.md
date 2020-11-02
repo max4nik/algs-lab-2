@@ -26,11 +26,9 @@
 - open project folder in console
 - do either:
     - run `python solution/bananas.py` in console
-    <br/>
-    or
-    <br/>
-    - open `solution` folder
-    - run `python bananas.py`
+- or:
+  - open `solution` folder
+  - run `python bananas.py`
 
 ## Algorithm analysis
 

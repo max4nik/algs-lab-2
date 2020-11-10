@@ -11,3 +11,35 @@
 ніж охоронці повернуться.
 Визначіть мінімальне ціле число К таким чином, щоб Джекі могла з'їсти всі банани на
 складі протягом Н годин, поки повернеться охорона.
+
+## Solution
+
+- defining low and high borders for binary searching:
+    - low border is sum of all elements in `piles` divided by `hours` for better performance
+- doing binary search:
+    - if passes condition `can_eat_in_time()` - (`real_hours` needed for eating all piles with `probable_speed` are less then `hours_to_eat`) : set current maximal value to mid value
+    - else if do not pass condition `can_eat_in_time()`: set current minimal value to mid value
+    - return current minimal value as solution whenever `maximal_value` will be less or equal to `minimal_value`
+    
+## How-to-use instructions
+- clone repository
+- open project folder in console
+- do either:
+    - run `python solution/bananas.py` in console
+- or:
+  - open `solution` folder
+  - run `python bananas.py`
+
+## Algorithm analysis
+
+### Time complexity
+O(N(log(MAX_FROM_PILES - SUM_OF_PILES/hours) + 1))
+    <br/>
+    <br/>
+    where:
+- N is length of `piles` list
+- MAX_FROM_PILES is biggest element in `piles`
+- SUM_OF_PILES is sum of all elements in `piles`
+ 
+### Space complexity
+O(1)
